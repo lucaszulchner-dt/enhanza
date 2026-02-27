@@ -1,0 +1,5 @@
+project            = "pj-enhan-terraform-main"
+region             = "europe-west1"
+zone               = "europe-west1-b"
+sample_data_bucket = "sample_data_bucket_enhanz"
+iceberg_bucket     = "iceberg_bucket_enhanz"
