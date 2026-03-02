@@ -1,33 +1,5 @@
-
-#needs JSON KEY TO WORK
 #export GOOGLE_APPLICATION_CREDENTIALS="/mnt/c/Users/lucas.rios/Documents/aaacode/aaa_enhanza/terraform/sa-key.json"
-
-import google.auth
-
-
-#this patching makes the code slower, look onto Workforce identity
-# Monkey-patch: force cloud-platform scope when none is provided.
-# Fixes pyiceberg's GoogleAuthManager calling google.auth.default() without scopes,
-# which fails for service account keys.
-_original_default = google.auth.default
-
-def _scoped_default(*args, **kwargs):
-    if not kwargs.get("scopes") and (not args or args[0] is None):
-        kwargs["scopes"] = ["https://www.googleapis.com/auth/cloud-platform"]
-    return _original_default(*args, **kwargs)
-
-google.auth.default = _scoped_default
-
-
-#this is another option of patching the scope, both make the code slower
-'''
-_scoped_creds, _project = google.auth.default(
-    scopes=["https://www.googleapis.com/auth/cloud-platform"]
-)
-def _cached_default(*args, **kwargs):
-    return _scoped_creds, _project
-google.auth.default = _cached_default
-'''
+#works with json key or SA impersonation
 
 import dlt
 import json

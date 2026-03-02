@@ -9,6 +9,11 @@ iceberg_catalog_type = "rest"
 type = "rest"
 uri = "https://biglake.googleapis.com/iceberg/v1/restcatalog"
 warehouse = "gs://iceberg_bucket_enhanz"
-"auth.type" = "google"
 "header.x-goog-user-project" = "pj-enhan-terraform-main"
 "header.X-Iceberg-Access-Delegation" = ""
+
+[iceberg_catalog.iceberg_catalog_config.auth]
+type = "google"
+
+[iceberg_catalog.iceberg_catalog_config.auth.google]
+scopes = ["https://www.googleapis.com/auth/cloud-platform"]
