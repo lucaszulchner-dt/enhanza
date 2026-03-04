@@ -32,4 +32,4 @@ for run in range(20):
         table_name="test_concurrent",
         loader_file_format="parquet",
     )
-    print(f"[WRITER B] Run {run+1}: {load_info}")
+    print(f"[WRITER B] Run {run + 1}: {load_info}")
