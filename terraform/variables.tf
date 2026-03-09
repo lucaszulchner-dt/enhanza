@@ -17,3 +17,7 @@ variable "sample_data_bucket" {
 variable "iceberg_bucket" {
   type = string
 }
+
+variable "stg_bucket" {
+  type = string
+}

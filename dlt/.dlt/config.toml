@@ -1,19 +1,2 @@
 [destination.filesystem]
-bucket_url = "gs://iceberg_bucket_enhanz"
-
-[iceberg_catalog]
-iceberg_catalog_name = "biglake"
-iceberg_catalog_type = "rest"
-
-[iceberg_catalog.iceberg_catalog_config]
-type = "rest"
-uri = "https://biglake.googleapis.com/iceberg/v1/restcatalog"
-warehouse = "gs://iceberg_bucket_enhanz"
-"header.x-goog-user-project" = "pj-enhan-terraform-main"
-"header.X-Iceberg-Access-Delegation" = ""
-
-[iceberg_catalog.iceberg_catalog_config.auth]
-type = "google"
-
-[iceberg_catalog.iceberg_catalog_config.auth.google]
-scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+bucket_url = "gs://stg__raw_bucket"

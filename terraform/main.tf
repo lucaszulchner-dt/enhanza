@@ -20,6 +20,13 @@ resource "google_storage_bucket" "iceberg_bucket" {
   uniform_bucket_level_access = true
 }
 
+resource "google_storage_bucket" "stg__bucket" {
+  name                        = var.stg_bucket
+  location                    = var.region
+  force_destroy               = true
+  uniform_bucket_level_access = true
+}
+
 
 #needs enabled https://console.developers.google.com/apis/api/biglake.googleapis.com/overview?project=pj-enhan-terraform-main
 resource "google_biglake_iceberg_catalog" "catalog" {
@@ -38,12 +45,18 @@ resource "google_service_account" "dlt_sa" {
 
 resource "google_project_iam_member" "dlt_sa_biglake_editor" {
   project = var.project
-  role = "roles/biglake.editor"
-  member = "serviceAccount:${google_service_account.dlt_sa.email}"
+  role    = "roles/biglake.editor"
+  member  = "serviceAccount:${google_service_account.dlt_sa.email}"
 }
 
 resource "google_storage_bucket_iam_member" "dlt_sa_iceberg_writer" {
   bucket = google_storage_bucket.iceberg_bucket.name
+  role   = "roles/storage.objectUser"
+  member = "serviceAccount:${google_service_account.dlt_sa.email}"
+}
+
+resource "google_storage_bucket_iam_member" "dlt_sa_stg_writer" {
+  bucket = google_storage_bucket.stg__bucket.name
   role   = "roles/storage.objectUser"
   member = "serviceAccount:${google_service_account.dlt_sa.email}"
 }
